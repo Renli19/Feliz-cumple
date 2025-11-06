@@ -9,8 +9,8 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-// ---- Variables del puño ----
-let punchX = -200;
+// ---- Variables ----
+let punchX = -300;
 let punching = true;
 let frame = 0;
 
@@ -34,27 +34,29 @@ function drawFist() {
   ctx.fill();
 
   // Brazo
-  ctx.fillRect(-80, -10, 80, 20);
-
+  ctx.fillRect(-100, -10, 100, 20);
   ctx.restore();
 }
 
 // ---- Animación ----
 function animate() {
   if (punching) {
-    punchX += 40;
-    if (punchX > canvas.width / 2 - 50 && frame === 0) {
+    punchX += 15; // más lento
+    if (punchX > canvas.width / 2 - 80 && frame === 0) {
       frame = 1;
       playPunchSound();
       flashScreen();
       setTimeout(() => {
         message.classList.remove("hidden");
-      }, 400);
+      }, 1500);
     }
     if (punchX > canvas.width + 200) {
       punching = false;
     }
+  } else if (punchX > -300) {
+    punchX -= 5; // regresa despacio
   }
+
   drawFist();
   requestAnimationFrame(animate);
 }
@@ -73,10 +75,10 @@ function flashScreen() {
   flash.style.zIndex = "1";
   document.body.appendChild(flash);
   setTimeout(() => {
-    flash.style.transition = "opacity 0.3s";
+    flash.style.transition = "opacity 0.6s";
     flash.style.opacity = "0";
-    setTimeout(() => flash.remove(), 300);
-  }, 100);
+    setTimeout(() => flash.remove(), 600);
+  }, 150);
 }
 
 // ---- Sonido del golpe ----
@@ -87,10 +89,10 @@ function playPunchSound() {
 
   osc.type = "square";
   osc.frequency.setValueAtTime(120, audioCtx.currentTime);
-  gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+  gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
   osc.connect(gain);
   gain.connect(audioCtx.destination);
   osc.start();
-  osc.stop(audioCtx.currentTime + 0.3);
+  osc.stop(audioCtx.currentTime + 0.4);
 }

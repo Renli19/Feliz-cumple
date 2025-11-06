@@ -29,7 +29,10 @@ canvas {
   text-align: center;
   position: relative;
   z-index: 2;
-  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 3.5s; /* aparece después del golpe */
 }
 
 .message.hidden {
@@ -46,6 +49,10 @@ canvas {
   margin-top: 1rem;
   position: relative;
   display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeCake 2s ease forwards;
+  animation-delay: 4.5s;
 }
 
 .cake .base {
@@ -84,7 +91,10 @@ canvas {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeCake {
   to { opacity: 1; transform: translateY(0); }
 }
 

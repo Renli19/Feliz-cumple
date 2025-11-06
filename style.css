@@ -1,58 +1,107 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+* {
   margin: 0;
-  background-color: #39c5bb; /* tono cabello de Hatsune Miku */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
-  overflow: hidden;
-  font-family: "Poppins", sans-serif;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.container {
-  position: relative;
-  text-align: center;
+body {
+  background-color: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #fff;
+  font-family: 'Bangers', cursive;
 }
 
 canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100vw;
-  height: 70vh;
-  max-width: 600px;
+  height: 100vh;
 }
 
-#surprise-btn {
-  margin-top: 1rem;
-  padding: 12px 24px;
-  font-size: 1.2rem;
-  background: #ffcc00;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
-}
-#surprise-btn:hover {
-  background: #ffaa00;
-  transform: scale(1.05);
+.message {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 1s ease forwards;
 }
 
-h1 {
-  color: #fff;
-  text-shadow: 2px 2px 4px #000;
-  margin-top: 1rem;
-}
-
-.hidden {
+.message.hidden {
   display: none;
+}
+
+.message h1 {
+  font-size: 2.8rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px #ff0000;
+}
+
+.cake {
+  margin-top: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.cake .base {
+  width: 120px;
+  height: 60px;
+  background-color: #00ddc0;
+  border-radius: 10px 10px 0 0;
+  margin: 0 auto;
+}
+
+.cake .layer {
+  width: 100px;
+  height: 15px;
+  background-color: #00bba4;
+  border-radius: 10px;
+  position: absolute;
+  top: -10px;
+  left: 10px;
+}
+
+.cake .flame {
+  width: 10px;
+  height: 20px;
+  background: #ffcc00;
+  border-radius: 50%;
+  position: absolute;
+  top: -30px;
+  left: 55px;
+  animation: flicker 0.3s infinite alternate;
+}
+
+/* Animaciones */
+@keyframes flicker {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(1.2); opacity: 0.7; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive */
 @media (max-width: 600px) {
-  #surprise-btn {
-    font-size: 1rem;
-    padding: 10px 18px;
+  .message h1 {
+    font-size: 1.8rem;
   }
-  h1 {
-    font-size: 1.3rem;
+  .cake .base {
+    width: 80px;
+    height: 40px;
+  }
+  .cake .layer {
+    width: 70px;
+    left: 5px;
+  }
+  .cake .flame {
+    left: 38px;
   }
 }
